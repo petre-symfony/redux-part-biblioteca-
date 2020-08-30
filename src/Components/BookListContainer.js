@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import BookList from './BookList';
-import { fetchBooks } from '../actions';
-import requests from "../agent";
+import { fetchBooksList } from '../actions';
 
 class BookListContainer extends React.Component{
   componentDidMount() {
-    requests.get('/books').then(response => console.log(response));
+    this.props.fetchBooksList();
   }
 
   render() {
@@ -24,5 +23,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { fetchBooks }
+  { fetchBooksList }
 )(BookListContainer);
