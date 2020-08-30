@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import BookList from './BookList';
 import { fetchBooks } from '../actions';
+import requests from "../agent";
 
 class BookListContainer extends React.Component{
   componentDidMount() {
-    this.props.fetchBooks();
+    requests.get('/books').then(response => console.log(response));
   }
 
   render() {
