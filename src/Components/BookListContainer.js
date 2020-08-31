@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import BookList from './BookList';
-import { fetchBooksList } from '../actions';
+import { fetchBooksList, fetchBookListPage } from '../actions';
 import Paginator from "./Paginator";
 
 class BookListContainer extends React.Component{
@@ -10,12 +10,12 @@ class BookListContainer extends React.Component{
   }
 
   render() {
-    const { books } = this.props;
+    const { books, currentPage, fetchBookListPage } = this.props;
 
     return (
       <React.Fragment>
         <BookList books={books} />
-        <Paginator currentPage={1} pageCount={10}/>
+        <Paginator currentPage={currentPage} pageCount={10} setPage={fetchBookListPage}/>
       </React.Fragment>
     )
   }
@@ -27,5 +27,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { fetchBooksList }
+  { fetchBooksList, fetchBookListPage }
 )(BookListContainer);
