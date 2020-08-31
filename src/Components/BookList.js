@@ -56,6 +56,15 @@ class BookList extends React.Component {
                         {book.pages &&
                         <li className="list-group-item">{book.pages} pagini</li>
                         }
+                        {(() => {
+                          if (book.missingPages && book.missingPages === 'NONE'){
+                            return (<li className="list-group-item">Nu lipseste nici o pagina</li>)
+                          } else if( book.missingPages && book.missingPages === 'n/a') {
+                            return (<li className="list-group-item">Nu cunosc cate pagini lipsesc</li>)
+                          } else if (book.missingPages){
+                            return (<li className="list-group-item">Lipses {book.missingPages} pagini</li>)
+                          }
+                        })()}
                         {book.format &&
                           <li className="list-group-item">Format: {book.format}</li>
                         }
