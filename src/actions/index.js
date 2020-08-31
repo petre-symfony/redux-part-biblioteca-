@@ -22,7 +22,7 @@ export const bookListError = (error) => ({
   error
 })
 
-export const fetchBookListPage = (page) => ({
+export const bookListSetPage = (page) => ({
   type: BOOK_LIST_SET_PAGE,
   page
 })
