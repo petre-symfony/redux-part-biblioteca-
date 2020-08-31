@@ -9,6 +9,14 @@ class BookListContainer extends React.Component{
     this.props.fetchBooksList();
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {currentPage, fetchBooksList } = this.props;
+
+    if (prevProps.currentPage !== currentPage){
+      fetchBooksList(currentPage);
+    }
+  }
+
   render() {
     const { books, currentPage, fetchBookListPage } = this.props;
 

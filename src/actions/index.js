@@ -6,8 +6,8 @@ import {
 import requests from "../agent";
 
 
-export const fetchBooksList = () => dispatch => (
-  requests.get('/books')
+export const fetchBooksList = (page = 1) => dispatch => (
+  requests.get(`/books?page=${page}`)
     .then(response => dispatch(bookListReceived(response)))
     .catch(error => dispatch(bookListError(error)))
 )
