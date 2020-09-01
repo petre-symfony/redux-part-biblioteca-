@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import BookList from './BookList';
 import { fetchBooksList, bookListSetPage } from '../actions';
 import Paginator from "./Paginator";
+import Spinner from "./Spinner";
 
 class BookListContainer extends React.Component{
   componentDidMount() {
@@ -33,8 +34,12 @@ class BookListContainer extends React.Component{
   }
 
   render() {
-    const { books, currentPage, bookListSetPage } = this.props;
+    const { books, isFetching, currentPage, bookListSetPage } = this.props;
 
+    if (isFetching){
+      return <Spinner />
+    }
+    
     return (
       <React.Fragment>
         <BookList books={books} />
