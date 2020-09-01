@@ -23,7 +23,7 @@ class BookList extends React.Component {
                         </div>
                       </div>
                     )}
-                    {book.publishers && (
+                    {book.publishers.length !== 0 && (
                       <div className="card book-editors">
                         <p>Editori</p>
                         <div className="card-body">
@@ -81,7 +81,7 @@ class BookList extends React.Component {
                     </div>
                   </div>
                 </div>
-                {book.authors && (
+                {book.authors.length !== 0 && (
                   <div className="card book-authors">
                     <p>Authors</p>
                     <div className="card-body">
