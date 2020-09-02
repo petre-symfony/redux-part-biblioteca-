@@ -34,7 +34,7 @@ class BookListContainer extends React.Component{
   }
 
   render() {
-    const { books, isFetching, currentPage, bookListSetPage } = this.props;
+    const { books, isFetching, currentPage, pageCount, bookListSetPage } = this.props;
 
     if (isFetching){
       return <Spinner />
@@ -43,7 +43,7 @@ class BookListContainer extends React.Component{
     return (
       <React.Fragment>
         <BookList books={books} />
-        <Paginator currentPage={currentPage} pageCount={10} setPage={this.changePage}/>
+        <Paginator currentPage={currentPage} pageCount={pageCount} setPage={this.changePage}/>
       </React.Fragment>
     )
   }

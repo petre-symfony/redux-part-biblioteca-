@@ -4,6 +4,7 @@ import {
   BOOK_LIST_ERROR,
   BOOK_LIST_SET_PAGE
 }from '../actions/types';
+import { hydraPageCount } from '../apiUtils';
 
 export default (state = {
   books: null,
@@ -21,6 +22,7 @@ export default (state = {
       return {
         ...state,
         books: action.books['hydra:member'],
+        pageCount: hydraPageCount(action.books),
         isFetching: false
       }
     case BOOK_LIST_ERROR:
