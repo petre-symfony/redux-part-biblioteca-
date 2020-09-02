@@ -1,18 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import BookList from './BookList';
-import { fetchBooksList, bookListSetPage } from '../actions';
+import { fetchBooksList, bookListSetPage, bookListSetAuthor } from '../actions';
 import Paginator from "./Paginator";
 import Spinner from "./Spinner";
 
 class BookListContainer extends React.Component{
   componentDidMount() {
-    this.props.fetchBooksList(this.getQueryParamPage());
+    if (typeof this.getQueryParamsAuthor() !== 'undefined'){
+      this.props.bookListSetAuthor(this.getQueryParamsAuthor());
+    } else {
+      this.props.fetchBooksList(this.getQueryParamPage())
+    };
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {currentPage, fetchBooksList, bookListSetPage } = this.props;
+    const {currentPage, fetchBooksList, bookListSetPage, author } = this.props;
 
+    console.log('Prev props author: ', prevProps.author);
     if (prevProps.currentPage !== currentPage){
       fetchBooksList(currentPage);
     }
@@ -20,10 +25,20 @@ class BookListContainer extends React.Component{
     if(prevProps.match.params.page !== this.getQueryParamPage()){
       bookListSetPage(this.getQueryParamPage());
     }
+
+    if(prevProps.author !== author){
+      this.props.fetchBooksList(1, {
+        author: this.getQueryParamsAuthor()}
+      );
+    }
   }
 
   getQueryParamPage = () => {
     return Number(this.props.match.params.page) || 1;
+  }
+
+  getQueryParamsAuthor = () => {
+    return this.props.match.params.author;
   }
 
   changePage = (page) => {
@@ -58,8 +73,9 @@ class BookListContainer extends React.Component{
   }
 
   render() {
-    const { books, isFetching, currentPage, pageCount, bookListSetPage } = this.props;
-
+    const { books, isFetching, currentPage, pageCount, bookListSetPage, author } = this.props;
+    console.log(this.getQueryParamsAuthor(), author);
+    console.log('From render:', this.props);
     if (isFetching){
       return <Spinner />
     }
@@ -87,5 +103,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { fetchBooksList, bookListSetPage }
+  { fetchBooksList, bookListSetPage, bookListSetAuthor }
 )(BookListContainer);

@@ -86,7 +86,11 @@ class BookList extends React.Component {
                     <p>Authors</p>
                     <div className="card-body">
                       <ul className="list-group">
-                        {book.authors.map(author => <li className="list-group-item">{author.fullName}</li>)}
+                        {book.authors.map(author => (
+                          <li className="list-group-item">
+                            <a href={`/1/${author.fullName.toLowerCase()}`}>{author.fullName}</a>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
