@@ -11,15 +11,18 @@ class Paginator extends React.Component {
   }
 
   render(){
-    const { currentPage, setPage, pageCount } = this.props;
+    const { currentPage, setPage, pageCount, prevPage, nextPage, firstPage, lastPage } = this.props;
 
     return (
       <nav>
         <ul className="pagination">
           <li className="page-item">
-            <button className="page-link">Previous</button>
+            <button className="page-link" onClick={firstPage} disabled={currentPage <= 1}>First</button>
           </li>
-          {this.paginatorRange(currentPage, currentPage+9).map(page => {
+          <li className="page-item">
+            <button className="page-link" onClick={prevPage} disabled={currentPage <= 1}>Previous</button>
+          </li>
+          {this.paginatorRange(currentPage, currentPage+10).map(page => {
             const onClick = (event) => {
               event.preventDefault();
               setPage(page);
@@ -33,7 +36,10 @@ class Paginator extends React.Component {
             }
           })}
           <li className="page-item">
-            <button className="page-link">Next</button>
+            <button className="page-link" onClick={nextPage} disabled={currentPage >= pageCount}>Next</button>
+          </li>
+          <li className="page-item">
+            <button className="page-link" onClick={lastPage} disabled={currentPage >= pageCount}>Last</button>
           </li>
         </ul>
       </nav>

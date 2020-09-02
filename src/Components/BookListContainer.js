@@ -33,6 +33,30 @@ class BookListContainer extends React.Component{
     history.push(`/${page}`);
   }
 
+  onNextPageClick = () => {
+    const {currentPage, pageCount} = this.props;
+    const newPage =  Math.min(currentPage+1, pageCount);
+
+    this.changePage(newPage);
+  }
+
+  onPrevPageClick = () => {
+    const {currentPage, pageCount} = this.props;
+    const newPage = Math.max(currentPage-1, 1);
+
+    this.changePage(newPage)
+  }
+
+  onFirstPageClick = () => {
+    this.changePage(1)
+  }
+
+  onLastPageClick = () => {
+    const {pageCount} = this.props;
+
+    this.changePage(pageCount)
+  }
+
   render() {
     const { books, isFetching, currentPage, pageCount, bookListSetPage } = this.props;
 
@@ -43,7 +67,15 @@ class BookListContainer extends React.Component{
     return (
       <React.Fragment>
         <BookList books={books} />
-        <Paginator currentPage={currentPage} pageCount={pageCount} setPage={this.changePage}/>
+        <Paginator
+          currentPage={currentPage}
+          pageCount={pageCount}
+          setPage={this.changePage}
+          nextPage={this.onNextPageClick}
+          prevPage={this.onPrevPageClick}
+          firstPage={this.onFirstPageClick}
+          lastPage={this.onLastPageClick}
+        />
       </React.Fragment>
     )
   }
